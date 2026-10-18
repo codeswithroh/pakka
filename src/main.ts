@@ -215,6 +215,47 @@ function relDay(d: Date, withDate = true): string {
 const openFlags = (o: Order, i: number) => o.flags.filter((f) => !state.checked.has(key(o, i) + f.field));
 const sizeLabel = (o: Order) => (o.sizeKg ? `${o.sizeKg} kg` : o.count ? `${o.count} pcs` : '—');
 
+// ----- theme -----
+
+const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function theme(): 'light' | 'dark' {
+  const t = document.documentElement.dataset.theme;
+  return t === 'light' || t === 'dark' ? t : darkQuery.matches ? 'dark' : 'light';
+}
+
+function setTheme(t: 'light' | 'dark') {
+  document.documentElement.dataset.theme = t;
+  try {
+    localStorage.setItem('pakka-theme', t);
+  } catch {
+    // Private mode or blocked storage: the choice just won't survive a reload.
+  }
+  syncThemeColor();
+  render();
+}
+
+function syncThemeColor() {
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme() === 'dark' ? '#161210' : '#f6f4f0');
+}
+
+function themeToggle(): string {
+  const t = theme();
+  return `
+  <div class="theme-toggle" role="group" aria-label="Colour theme">
+    <button data-theme-set="light" aria-pressed="${t === 'light'}" title="Light mode">${icon('sun')}<span>Light</span></button>
+    <button data-theme-set="dark" aria-pressed="${t === 'dark'}" title="Dark mode">${icon('moon')}<span>Dark</span></button>
+  </div>`;
+}
+
+// Following the system (no saved choice): re-render the toggle when the system theme flips.
+darkQuery.addEventListener('change', () => {
+  if (!document.documentElement.dataset.theme) {
+    syncThemeColor();
+    render();
+  }
+});
+
 // ----- sidebar -----
 
 function sidebar(): string {
@@ -229,6 +270,7 @@ function sidebar(): string {
       ${navItem('chats', 'messageCircle', 'Chats', state.chats.length || '')}
     </nav>
     ${modelCard()}
+    ${themeToggle()}
     <p class="side-note">${icon('circleOff')}<span>Chats never leave this device. No account, no server.</span></p>
   </aside>`;
 }
@@ -571,6 +613,7 @@ function bind() {
     render();
   });
   on('#print', 'click', () => window.print());
+  on('[data-theme-set]', 'click', (e) => setTheme((e.currentTarget as HTMLElement).dataset.themeSet as 'light' | 'dark'));
   on('[data-tab]', 'click', (e) => {
     tab = (e.currentTarget as HTMLElement).dataset.tab as Tab;
     render();
@@ -602,6 +645,7 @@ function bind() {
   });
 }
 
+syncThemeColor();
 render();
 modelIsCached().then((c) => {
   state.cached = c;

@@ -6,6 +6,13 @@
     <meta name="theme-color" content="#fbf4ea" />
     <meta name="description" content="Pakka turns a home baker's WhatsApp order chats into tomorrow's bake sheet. Gemma 4 reads them on your own phone." />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <script>
+      // Apply a saved theme before first paint, so there's no flash of the wrong one.
+      try {
+        const t = localStorage.getItem('pakka-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
     <title>Pakka · WhatsApp orders to a bake sheet</title>
   </head>
   <body>

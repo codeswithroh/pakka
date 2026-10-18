@@ -41,8 +41,33 @@
   color-scheme: light;
 }
 
+/* Theme: follows the system unless the toggle has set data-theme on <html>. */
+:root[data-theme="dark"] {
+  --bg: #161210;
+  --surface: #1f1916;
+  --surface-2: #251e1a;
+  --border: #3a2f29;
+  --text: #f3ede6;
+  --muted: #b3a69b;
+  --primary: #e48a6c;
+  --primary-hover: #ee9b7f;
+  --primary-soft: #3a231b;
+  --on-primary: #1d1612;
+  --lime: #d8ea5c;
+  --ok: #8fd3ad;
+  --ok-bg: #18342a;
+  --warn: #f3c46b;
+  --warn-bg: #3a2b12;
+  --info: #a9c1f5;
+  --info-bg: #1d2740;
+  --tile: #f3ede6;
+  --tile-ink: #1d1612;
+  --plaque: #3a231b;
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #161210;
     --surface: #1f1916;
     --surface-2: #251e1a;
@@ -205,6 +230,48 @@ p {
 
 .model-card p {
   color: var(--text);
+}
+
+.theme-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--r);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.theme-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+
+.theme-toggle button:hover {
+  color: var(--text);
+}
+
+.theme-toggle button[aria-pressed='true'] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.theme-toggle button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 45%, transparent);
+  outline-offset: 1px;
 }
 
 .side-note {
@@ -414,17 +481,14 @@ p {
 
 .display mark {
   background: linear-gradient(transparent 12%, var(--lime) 12%, var(--lime) 88%, transparent 88%);
-  color: inherit;
   font-style: italic;
   padding: 0 0.12em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
-@media (prefers-color-scheme: dark) {
-  .display mark {
-    color: #1d1612;
-  }
+.display mark {
+  color: #1d1612;
 }
 
 .lede {
@@ -1145,6 +1209,16 @@ td.truncate {
   }
   .side-note {
     display: none;
+  }
+  .theme-toggle {
+    order: 2;
+  }
+  .theme-toggle span {
+    display: none;
+  }
+  .theme-toggle button {
+    min-width: 34px;
+    padding: 0 6px;
   }
   .main {
     padding: var(--s6) var(--s4) var(--s10);

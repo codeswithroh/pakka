@@ -69,7 +69,7 @@ Pakka's rule: **when it isn't sure, it asks the baker. It doesn't guess.**
 | <img src="docs/v2-rahul.png" alt="An order with its source chat lines highlighted" width="420" /> | **Shows its working.** Every card can open the chat it came from, with the lines each detail was copied from highlighted. |
 | <img src="docs/v2-skipped.png" alt="Chats left off the sheet: an enquiry and a cancellation" width="420" /> | **Knows what isn't an order.** Price questions and cancelled orders are listed separately, never on the sheet. |
 
-Plus: a summary panel with totals to bake and collect, day filters, a printable sheet, and a **Copy confirmation**
+Plus: a summary panel with totals to bake and collect, day filters, a printable sheet, a light/dark toggle (follows the system until you pick), and a **Copy confirmation**
 button that writes a WhatsApp message for the customer to check.
 
 <p align="right"><a href="#top">back to top ↑</a></p>
