@@ -75,3 +75,13 @@ test('quotes must come from the chat', () => {
   assert.equal(findQuote('Kal Shaam 6 baje.', msgs), 1);
   assert.equal(findQuote('tomorrow 6pm', msgs), -1);
 });
+test('"ke liye" is not past tense', () => {
+  const w = resolveWhen('kal ke liye', 'Didi kal ke liye 1 kg rasmalai cake, eggless', sat);
+  assert.equal(w.sure, true);
+  assert.equal(iso(w.date), '2026-10-18');
+});
+test('"day after tomorrow" is one day (found by the held-out run)', () => {
+  const w = resolveWhen('the day after tomorrow', 'Could I order 2 pounds of lemon drizzle cake for the day after tomorrow?', sat);
+  assert.equal(w.sure, true);
+  assert.equal(iso(w.date), '2026-10-19');
+});

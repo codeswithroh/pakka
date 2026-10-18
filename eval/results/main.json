@@ -1,0 +1,1153 @@
+{
+  "ua": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Mobile Safari/537.36",
+  "now": "2026-10-17T22:30:00.000Z",
+  "tallies": {
+    "baseline": {
+      "fields": {
+        "size": {
+          "right": 13,
+          "total": 16
+        },
+        "eggless": {
+          "right": 16,
+          "total": 16
+        },
+        "time": {
+          "right": 10,
+          "total": 15
+        },
+        "cake message": {
+          "right": 15,
+          "total": 16
+        },
+        "price": {
+          "right": 13,
+          "total": 16
+        },
+        "advance": {
+          "right": 14,
+          "total": 14
+        }
+      },
+      "dates": {
+        "right": 4,
+        "asked": 0,
+        "wrong": 8,
+        "missing": 4
+      },
+      "phantom": 3,
+      "missed": 0
+    },
+    "pakka": {
+      "fields": {
+        "size": {
+          "right": 15,
+          "total": 16
+        },
+        "eggless": {
+          "right": 16,
+          "total": 16
+        },
+        "time": {
+          "right": 14,
+          "total": 15
+        },
+        "cake message": {
+          "right": 15,
+          "total": 16
+        },
+        "price": {
+          "right": 16,
+          "total": 16
+        },
+        "advance": {
+          "right": 14,
+          "total": 14
+        }
+      },
+      "dates": {
+        "right": 15,
+        "asked": 1,
+        "wrong": 0,
+        "missing": 0
+      },
+      "phantom": 3,
+      "missed": 0
+    }
+  },
+  "timings": {
+    "baseline": [
+      2598,
+      2269,
+      3800,
+      2392,
+      1885,
+      3651,
+      1931,
+      2079,
+      2387,
+      469,
+      2081,
+      2009,
+      2088,
+      2246,
+      2231,
+      2304,
+      1955,
+      2180
+    ],
+    "pakka": [
+      2626,
+      2340,
+      3856,
+      2450,
+      2456,
+      3852,
+      2153,
+      2154,
+      2813,
+      538,
+      2536,
+      2370,
+      2096,
+      2387,
+      2283,
+      2607,
+      2097,
+      2234
+    ]
+  },
+  "results": [
+    {
+      "id": "priya-truffle",
+      "expect": [
+        {
+          "item": "truffle",
+          "kg": 1,
+          "eggless": true,
+          "day": 1,
+          "time": "6:00 pm",
+          "message": "Happy Birthday Riya",
+          "price": 1200,
+          "advance": 500
+        }
+      ],
+      "baseline": {
+        "ms": 2598,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate truffle\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-10-18\",\n      \"time\": \"6:00 pm\",\n      \"cake_message\": \"Happy Birthday Riya\",\n      \"price\": 1200,\n      \"advance\": 500\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "chocolate truffle",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "6:00 pm",
+            "message": "Happy Birthday Riya",
+            "price": 1200,
+            "advance": 500
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2626,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate truffle\",\n      \"size\": \"1 kg\",\n      \"eggless\": \"eggless please\",\n      \"day\": \"kal shaam\",\n      \"time\": \"6 baje tak\",\n      \"cake_message\": \"Happy Birthday Riya\",\n      \"price\": \"1200 hoga\",\n      \"advance\": \"500 advance bhej diya gpay pe\",\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "chocolate truffle",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "6:00 pm",
+            "message": "Happy Birthday Riya",
+            "price": 1200,
+            "advance": 500
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "rahul-yesterday",
+      "trap": "\"kal\" meaning yesterday, then a new order",
+      "expect": [
+        {
+          "item": "pineapple",
+          "kg": 2,
+          "eggless": null,
+          "day": 3,
+          "time": "4:00 pm",
+          "message": null,
+          "price": 1400,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2269,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"pineapple\",\n      \"kg\": 2,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"4:00 pm\",\n      \"cake_message\": null,\n      \"price\": 1400,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "pineapple",
+            "kg": 2,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "4:00 pm",
+            "message": null,
+            "price": 1400,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2340,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"pineapple\",\n      \"size\": \"2 kg\",\n      \"eggless\": null,\n      \"day\": \"Tuesday\",\n      \"time\": \"4 baje tak\",\n      \"cake_message\": null,\n      \"price\": \"1400 ka hoga\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "pineapple",
+            "kg": 2,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 3,
+            "sure": true,
+            "time": "4:00 pm",
+            "message": null,
+            "price": 1400,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "time",
+              "note": "\"4 baje tak\": guessed 4:00 pm. Confirm am/pm.",
+              "line": 2
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "ananya-changed",
+      "trap": "customer changes the size",
+      "expect": [
+        {
+          "item": "black forest",
+          "kg": 1.5,
+          "eggless": null,
+          "day": 1,
+          "time": "1:00 pm",
+          "message": null,
+          "price": 1350,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 3800,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"black forest\",\n      \"kg\": 1.0,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-17\",\n      \"time\": \"1:00 pm\",\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null\n    },\n    {\n      \"item\": \"black forest\",\n      \"kg\": 1.5,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-17\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 1350.0,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "black forest",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 0,
+            "sure": true,
+            "time": "1:00 pm",
+            "message": null,
+            "price": null,
+            "advance": null
+          },
+          {
+            "item": "black forest",
+            "kg": 1.5,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 0,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 1350,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 3856,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"black forest\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"Sunday\",\n      \"time\": \"lunch time, 1 baje tak\",\n      \"cake_message\": null,\n      \"price\": \"1350 total\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    },\n    {\n      \"item\": \"black forest\",\n      \"size\": \"1.5 kg\",\n      \"eggless\": null,\n      \"day\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"1350 total\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "black forest",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "1:00 pm",
+            "message": null,
+            "price": 1350,
+            "advance": null
+          },
+          {
+            "item": "black forest",
+            "kg": 1.5,
+            "count": null,
+            "eggless": null,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1350,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "size",
+              "note": "A later message says 1.5 kg. Did they change it?",
+              "line": 4
+            }
+          ],
+          [
+            {
+              "field": "day",
+              "note": "No day found. Ask when they want it."
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "meera-devanagari",
+      "trap": "Devanagari script",
+      "expect": [
+        {
+          "item": "बटरस्कॉच",
+          "kg": 0.5,
+          "eggless": true,
+          "day": 1,
+          "time": "7:00 pm",
+          "message": "Happy Anniversary",
+          "price": 650,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2392,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"बटरस्कॉच केक\",\n      \"kg\": 0.5,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-10-18\",\n      \"time\": \"7:00 pm\",\n      \"cake_message\": \"Happy Anniversary\",\n      \"price\": 650,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "बटरस्कॉच केक",
+            "kg": 0.5,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "7:00 pm",
+            "message": "Happy Anniversary",
+            "price": 650,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2450,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"बटरस्कॉच केक\",\n      \"size\": \"आधा किलो\",\n      \"eggless\": \"बिना अंडे का\",\n      \"day\": \"कल शाम\",\n      \"time\": \"7 बजे\",\n      \"cake_message\": \"Happy Anniversary\",\n      \"price\": \"650 होगा\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "बटरस्कॉच केक",
+            "kg": 0.5,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "7:00 pm",
+            "message": "Happy Anniversary",
+            "price": 650,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "kabir-cupcakes",
+      "expect": [
+        {
+          "item": "cupcake",
+          "count": 12,
+          "eggless": null,
+          "day": 2,
+          "time": "11:00 am",
+          "message": null,
+          "price": null,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 1885,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"cupcakes\",\n      \"kg\": null,\n      \"count\": 12,\n      \"eggless\": null,\n      \"date\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "cupcakes",
+            "kg": null,
+            "count": 12,
+            "eggless": null,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": null,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2456,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"12 cupcakes\",\n      \"size\": \"12 cupcakes\",\n      \"eggless\": null,\n      \"day\": \"parso\",\n      \"time\": \"11 am\",\n      \"cake_message\": null,\n      \"price\": \"60 each, min 6\",\n      \"advance\": null,\n      \"pickup_or_delivery\": \"pickup around 11 am\"\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "12 cupcakes",
+            "kg": null,
+            "count": 12,
+            "eggless": null,
+            "dayOffset": 2,
+            "sure": true,
+            "time": "11:00 am",
+            "message": null,
+            "price": null,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "sneha-two-orders",
+      "trap": "two orders in one chat",
+      "expect": [
+        {
+          "item": "rasmalai",
+          "kg": 1,
+          "eggless": true,
+          "day": 1,
+          "time": null,
+          "message": null,
+          "price": 1300
+        },
+        {
+          "item": "brownie",
+          "count": 24,
+          "eggless": null,
+          "day": 5,
+          "time": null,
+          "message": null,
+          "price": 960
+        }
+      ],
+      "baseline": {
+        "ms": 3651,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"rasmalai cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 1300,\n      \"advance\": 1000\n    },\n    {\n      \"item\": \"brownies\",\n      \"kg\": null,\n      \"count\": 24,\n      \"eggless\": null,\n      \"date\": \"2026-10-24\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 960,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "rasmalai cake",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1300,
+            "advance": 1000
+          },
+          {
+            "item": "brownies",
+            "kg": null,
+            "count": 24,
+            "eggless": null,
+            "dayOffset": 7,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 960,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 3852,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"1 kg rasmalai cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": \"eggless\",\n      \"day\": \"kal\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"1300\",\n      \"advance\": \"1000 advance bheja hai\",\n      \"pickup_or_delivery\": null\n    },\n    {\n      \"item\": \"2 dozen brownies\",\n      \"size\": \"2 dozen\",\n      \"eggless\": null,\n      \"day\": \"Thursday\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"960\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "1 kg rasmalai cake",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": -1,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1300,
+            "advance": 1000
+          },
+          {
+            "item": "2 dozen brownies",
+            "kg": null,
+            "count": 24,
+            "eggless": null,
+            "dayOffset": 5,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 960,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "day",
+              "note": "\"kal\" here sounds like the past (\"didi kal ke liye 1 kg rasmalai cake\"), so this may be about an old order.",
+              "line": 0
+            }
+          ],
+          []
+        ]
+      }
+    },
+    {
+      "id": "arjun-no-order",
+      "trap": "just asking prices, no order",
+      "expect": [],
+      "baseline": {
+        "ms": 1931,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 1000,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "chocolate cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1000,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2153,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"1 kg chocolate cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"1000 for chocolate\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "1 kg chocolate cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1000,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "day",
+              "note": "No day found. Ask when they want it."
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "fatima-same-weekday",
+      "trap": "names today's weekday",
+      "expect": [
+        {
+          "item": "mango",
+          "kg": 1,
+          "eggless": true,
+          "day": "flag",
+          "time": null,
+          "message": null,
+          "price": 1100,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2079,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"mango cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-10-17\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 1100,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "mango cake",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 0,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 1100,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2154,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"mango cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": \"eggless\",\n      \"day\": \"Saturday\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"1100\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "mango cake",
+            "kg": 1,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 7,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1100,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "day",
+              "note": "Sent on a Saturday and says \"Saturday\": today, or a week from today?",
+              "line": 0
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "vikram-date",
+      "expect": [
+        {
+          "item": "photo",
+          "kg": 2,
+          "eggless": null,
+          "day": 8,
+          "time": "6:00 pm",
+          "message": "Happy 5th Birthday Aarohi",
+          "price": 2200,
+          "advance": 1100
+        }
+      ],
+      "baseline": {
+        "ms": 2387,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"photo cake\",\n      \"kg\": 2,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-25\",\n      \"time\": null,\n      \"cake_message\": \"Happy 5th Birthday Aarohi\",\n      \"price\": 2200,\n      \"advance\": 1100\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "photo cake",
+            "kg": 2,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 8,
+            "sure": true,
+            "time": null,
+            "message": "Happy 5th Birthday Aarohi",
+            "price": 2200,
+            "advance": 1100
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2813,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"photo cake\",\n      \"size\": \"2 kg\",\n      \"eggless\": null,\n      \"day\": \"25th Oct\",\n      \"time\": null,\n      \"cake_message\": \"Happy 5th Birthday Aarohi\",\n      \"price\": \"₹2,200\",\n      \"advance\": \"1100 on PhonePe\",\n      \"pickup_or_delivery\": \"Delivery to B-204, Green Park Society, 6 pm\"\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "photo cake",
+            "kg": 2,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 8,
+            "sure": true,
+            "time": null,
+            "message": "Happy 5th Birthday Aarohi",
+            "price": 2200,
+            "advance": 1100
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "pooja-parso-past",
+      "trap": "\"parso\" meaning the day before yesterday",
+      "expect": [],
+      "baseline": {
+        "ms": 469,
+        "reply": "```json\n{\n  \"orders\": []\n}\n```",
+        "preds": []
+      },
+      "pakka": {
+        "ms": 538,
+        "reply": "```json\n{\"orders\":[]}\n```",
+        "preds": [],
+        "flags": []
+      }
+    },
+    {
+      "id": "rohan-egg-ok",
+      "expect": [
+        {
+          "item": "nutella",
+          "kg": 1,
+          "eggless": false,
+          "day": 1,
+          "time": "8:00 pm",
+          "message": "Kunal",
+          "price": 1250,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2081,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"Nutella cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": false,\n      \"date\": null,\n      \"time\": \"8 baje\",\n      \"cake_message\": null,\n      \"price\": 1250,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "Nutella cake",
+            "kg": 1,
+            "count": null,
+            "eggless": false,
+            "dayOffset": null,
+            "sure": false,
+            "time": "8 baje",
+            "message": null,
+            "price": 1250,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2536,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"Nutella cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": \"egg chalega\",\n      \"day\": \"kal raat 8 baje\",\n      \"time\": \"8 baje\",\n      \"cake_message\": null,\n      \"price\": \"1250 hoga bhai\",\n      \"advance\": null,\n      \"pickup_or_delivery\": \"ghar pe deliver kar dena\"\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "Nutella cake",
+            "kg": 1,
+            "count": null,
+            "eggless": false,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "8:00 pm",
+            "message": null,
+            "price": 1250,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "divya-half",
+      "expect": [
+        {
+          "item": "red velvet",
+          "kg": 0.5,
+          "eggless": true,
+          "day": 0,
+          "message": null,
+          "price": 700,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2009,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"red velvet\",\n      \"kg\": \"half\",\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": null,\n      \"time\": \"5:00 pm\",\n      \"cake_message\": null,\n      \"price\": 700,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "red velvet",
+            "kg": null,
+            "count": null,
+            "eggless": true,
+            "dayOffset": null,
+            "sure": false,
+            "time": "5:00 pm",
+            "message": null,
+            "price": 700,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2370,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"half kg red velvet\",\n      \"size\": \"half kg\",\n      \"eggless\": \"bina ande ka please\",\n      \"day\": \"aaj shaam\",\n      \"time\": \"5 baje tak\",\n      \"cake_message\": null,\n      \"price\": \"700\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "half kg red velvet",
+            "kg": 0.5,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 0,
+            "sure": true,
+            "time": "5:00 pm",
+            "message": null,
+            "price": 700,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "sameer-mixed-tense",
+      "trap": "past and future in one sentence",
+      "expect": [
+        {
+          "item": "cake",
+          "kg": 1,
+          "eggless": null,
+          "day": 2,
+          "time": "evening",
+          "message": null,
+          "price": null,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2088,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-21\",\n      \"time\": \"Monday evening\",\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 4,
+            "sure": true,
+            "time": "monday evening",
+            "message": null,
+            "price": null,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2096,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"Monday evening\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 2,
+            "sure": true,
+            "time": "evening",
+            "message": null,
+            "price": null,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "kavya-next-sunday",
+      "trap": "\"next Sunday\"",
+      "expect": [
+        {
+          "item": "fruit",
+          "kg": 1.5,
+          "eggless": true,
+          "day": "flag",
+          "time": null,
+          "message": null,
+          "price": 1500,
+          "advance": 500
+        }
+      ],
+      "baseline": {
+        "ms": 2246,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"fresh fruit cake\",\n      \"kg\": 1.5,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-10-19\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 1500,\n      \"advance\": 500\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "fresh fruit cake",
+            "kg": 1.5,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 2,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 1500,
+            "advance": 500
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2387,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"1.5 kg fresh fruit cake\",\n      \"size\": \"1.5 kg\",\n      \"eggless\": \"eggless\",\n      \"day\": \"Next Sunday\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"1500 total\",\n      \"advance\": \"500 advance\",\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "1.5 kg fresh fruit cake",
+            "kg": 1.5,
+            "count": null,
+            "eggless": true,
+            "dayOffset": 1,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 1500,
+            "advance": 500
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "day",
+              "note": "\"Next Sunday\": the coming Sunday, or the one after?",
+              "line": 0
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "aman-tomorrow-english",
+      "expect": [
+        {
+          "item": "chocolate",
+          "kg": 1,
+          "eggless": null,
+          "day": 1,
+          "time": "5:00 pm",
+          "message": "Congrats Shreya",
+          "price": 1000,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2231,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"5:00 pm\",\n      \"cake_message\": \"Congrats Shreya\",\n      \"price\": null,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "chocolate cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "5:00 pm",
+            "message": "Congrats Shreya",
+            "price": null,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2283,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate cake\",\n      \"size\": \"1kg\",\n      \"eggless\": null,\n      \"day\": \"tomorrow\",\n      \"time\": \"5pm\",\n      \"cake_message\": \"Congrats Shreya\",\n      \"price\": \"1000\",\n      \"advance\": null,\n      \"pickup_or_delivery\": \"pickup\"\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "chocolate cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "5:00 pm",
+            "message": "Congrats Shreya",
+            "price": 1000,
+            "advance": null
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "nisha-dedh",
+      "expect": [
+        {
+          "item": "kitkat",
+          "kg": 1.5,
+          "eggless": null,
+          "day": 4,
+          "time": "7:00 pm",
+          "message": null,
+          "price": 1800,
+          "advance": 800
+        }
+      ],
+      "baseline": {
+        "ms": 2304,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"kitkat cake\",\n      \"kg\": 2,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-19\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 800,\n      \"advance\": 800\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "kitkat cake",
+            "kg": 2,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 2,
+            "sure": true,
+            "time": null,
+            "message": null,
+            "price": 800,
+            "advance": 800
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2607,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"kitkat cake\",\n      \"size\": \"dedh kilo\",\n      \"eggless\": null,\n      \"day\": \"Wednesday\",\n      \"time\": \"shaam 7 baje\",\n      \"cake_message\": null,\n      \"price\": \"1800 hoga\",\n      \"advance\": \"800 abhi bhej rahi hu\",\n      \"pickup_or_delivery\": \"pickup karungi\"\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "kitkat cake",
+            "kg": 1.5,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 4,
+            "sure": true,
+            "time": "7:00 pm",
+            "message": null,
+            "price": 1800,
+            "advance": 800
+          }
+        ],
+        "flags": [
+          []
+        ]
+      }
+    },
+    {
+      "id": "tanvi-cancel",
+      "trap": "order then cancelled",
+      "expect": [],
+      "baseline": {
+        "ms": 1955,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"butterscotch\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": null,\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 900,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "butterscotch",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": null,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 900,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2097,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"butterscotch\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"kal\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"900\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "butterscotch",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": -2,
+            "sure": false,
+            "time": null,
+            "message": null,
+            "price": 900,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "day",
+              "note": "\"kal\" here sounds like the past (\"kal ke liye 1 kg butterscotch book kar do\"), so this may be about an old order.",
+              "line": 0
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "id": "harsh-guessed-time",
+      "trap": "time with no am/pm",
+      "expect": [
+        {
+          "item": "coffee",
+          "kg": 1,
+          "eggless": null,
+          "day": 2,
+          "time": "3:00 pm",
+          "message": null,
+          "price": 1300,
+          "advance": null
+        }
+      ],
+      "baseline": {
+        "ms": 2180,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"coffee walnut cake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"3:00 pm\",\n      \"cake_message\": null,\n      \"price\": 1300,\n      \"advance\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "coffee walnut cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 1,
+            "sure": true,
+            "time": "3:00 pm",
+            "message": null,
+            "price": 1300,
+            "advance": null
+          }
+        ]
+      },
+      "pakka": {
+        "ms": 2234,
+        "reply": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"coffee walnut cake\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"parso\",\n      \"time\": \"3 baje\",\n      \"cake_message\": null,\n      \"price\": \"1300\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+        "preds": [
+          {
+            "item": "coffee walnut cake",
+            "kg": 1,
+            "count": null,
+            "eggless": null,
+            "dayOffset": 2,
+            "sure": true,
+            "time": "3:00 pm",
+            "message": null,
+            "price": 1300,
+            "advance": null
+          }
+        ],
+        "flags": [
+          [
+            {
+              "field": "time",
+              "note": "\"3 baje\": guessed 3:00 pm. Confirm am/pm.",
+              "line": 0
+            }
+          ]
+        ]
+      }
+    }
+  ]
+}

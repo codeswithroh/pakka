@@ -28,7 +28,7 @@ No server, no account, no API key. Chats never leave the device.
 
 {{README_RESULTS}}
 
-18 hand-written chats (20 orders, plus chats with no order), including traps: *kal* about yesterday, *parso* about a
+18 hand-written chats (16 orders, plus 3 chats with no order), including traps: *kal* about yesterday, *parso* about a
 complaint, a size changed the next morning, a cancellation, price questions only, Devanagari, two orders in one chat,
 "next Sunday", and a weekday named on the same weekday. The chats are made up; see `src/core/samples.ts`.
 

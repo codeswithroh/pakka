@@ -1,0 +1,54 @@
+{
+  "kind": "heldout",
+  "ua": "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Mobile Safari/537.36",
+  "replies": {
+    "h-correction": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"1 kg blueberry cheesecake\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"parso\",\n      \"time\": \"shaam 5 baje\",\n      \"cake_message\": null,\n      \"price\": \"1600 hoga\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"blueberry cheesecake\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"5:00 pm\",\n      \"cake_message\": null,\n      \"price\": 1600,\n      \"advance\": null\n    }\n  ]\n}\n```",
+      "pakkaMs": 2164,
+      "baselineMs": 2198
+    },
+    "h-tonight": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"half kg chocolate cake\",\n      \"size\": \"half kg\",\n      \"eggless\": null,\n      \"day\": \"aaj raat 9 baje tak\",\n      \"time\": \"9 baje tak\",\n      \"cake_message\": \"Sorry Babe 🙈\",\n      \"price\": \"600\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"chocolate cake\",\n      \"kg\": 0.5,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-17\",\n      \"time\": \"9:00 pm\",\n      \"cake_message\": \"Sorry Babe 🙈\",\n      \"price\": 600,\n      \"advance\": null\n    }\n  ]\n}\n```",
+      "pakkaMs": 2411,
+      "baselineMs": 2265
+    },
+    "h-november": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"Spiderman theme cake\",\n      \"size\": \"3 kg\",\n      \"eggless\": \"eggless\",\n      \"day\": \"2nd Nov\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"₹3,600\",\n      \"advance\": \"1500 advance please\",\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"Spiderman theme cake\",\n      \"kg\": 3,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-11-02\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 3600,\n      \"advance\": 1500\n    }\n  ]\n}\n```",
+      "pakkaMs": 2467,
+      "baselineMs": 2262
+    },
+    "h-complaint-then-order": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"less sweet pineapple\",\n      \"size\": \"1 kg\",\n      \"eggless\": null,\n      \"day\": \"Monday\",\n      \"time\": \"7 baje shaam\",\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"pineapple\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"7:00 pm\",\n      \"cake_message\": null,\n      \"price\": null,\n      \"advance\": null\n    }\n  ]\n}\n```",
+      "pakkaMs": 2171,
+      "baselineMs": 2153
+    },
+    "h-english-dat": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"lemon drizzle cake\",\n      \"size\": \"2 pounds\",\n      \"eggless\": \"No eggs please, my mom is vegetarian\",\n      \"day\": \"day after tomorrow\",\n      \"time\": \"Around 4pm\",\n      \"cake_message\": null,\n      \"price\": \"₹1,100\",\n      \"advance\": null,\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"lemon drizzle cake\",\n      \"kg\": 2,\n      \"count\": null,\n      \"eggless\": true,\n      \"date\": \"2026-10-19\",\n      \"time\": \"4:00 pm\",\n      \"cake_message\": null,\n      \"price\": 1100,\n      \"advance\": null\n    }\n  ]\n}\n```",
+      "pakkaMs": 2417,
+      "baselineMs": 2210
+    },
+    "h-devanagari-parso": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"1 किलो फ्रूट केक\",\n      \"size\": \"1 किलो\",\n      \"eggless\": null,\n      \"day\": \"परसों सुबह\",\n      \"time\": \"10 बजे\",\n      \"cake_message\": null,\n      \"price\": \"1000 होगा\",\n      \"advance\": \"500 भेज दिए हैं\",\n      \"pickup_or_delivery\": null\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"फ्रूट केक\",\n      \"kg\": 1,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-18\",\n      \"time\": \"10:00 am\",\n      \"cake_message\": null,\n      \"price\": 1000,\n      \"advance\": 500\n    }\n  ]\n}\n```",
+      "pakkaMs": 2352,
+      "baselineMs": 2253
+    },
+    "h-just-chatting": {
+      "pakka": "```json\n{\"orders\":[]}\n```",
+      "baseline": "```json\n{\n  \"orders\": []\n}\n```",
+      "pakkaMs": 536,
+      "baselineMs": 468
+    },
+    "h-k-advance": {
+      "pakka": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"2 kg red velvet\",\n      \"size\": \"2 kg\",\n      \"eggless\": null,\n      \"day\": \"Friday\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": \"2400 for 2 kg\",\n      \"advance\": \"sent 1.2k advance\",\n      \"pickup_or_delivery\": \"delivery at 3 pm to WeWork, Sector 44\"\n    }\n  ]\n}\n```",
+      "baseline": "```json\n{\n  \"orders\": [\n    {\n      \"item\": \"red velvet\",\n      \"kg\": 2,\n      \"count\": null,\n      \"eggless\": null,\n      \"date\": \"2026-10-17\",\n      \"time\": null,\n      \"cake_message\": null,\n      \"price\": 2400,\n      \"advance\": 1200\n    }\n  ]\n}\n```",
+      "pakkaMs": 2601,
+      "baselineMs": 2187
+    }
+  }
+}

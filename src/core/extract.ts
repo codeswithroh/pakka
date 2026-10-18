@@ -187,7 +187,55 @@ export async function extractOrders(chat: Chat, baker: string | null, now: Date,
     // One retry with a nudge; small models sometimes start with prose.
     raws = parseReply(await generate(prompt + '\n\nReply with the JSON object only.'));
   }
-  return raws.filter((r) => r.item || r.day || r.size).map((r) => checkOrder(r, chat.name, messages));
+  return checkChat(raws, chat.name, messages).orders;
+}
+
+export interface Skipped {
+  customer: string;
+  item: string;
+  why: string;
+}
+
+const CANCEL = /\b(cancel|cancelled|canceled|nahi chahiye|nahin chahiye|mat banana|mat banao|rehne do|rahne do|don'?t need|not needed|no longer)\b/i;
+const ENQUIRY = /\b(kitna|kitne|kitni|price|rate|how much|cost|charges?)\b|\?\s*$/i;
+const normItem = (s: string) => s.toLowerCase().replace(/\b\d+(\.\d+)?\s*(kg|kilo|gm|g|dozen|pcs)?\b|\bcake\b|[^\p{L}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+
+/**
+ * Check every order Gemma found in one chat, then apply three rules about the chat as a whole:
+ * a repeated item is one order with the latest details; an order the customer cancelled later
+ * comes off the sheet; a price question with no day and no money paid is an enquiry, not an order.
+ */
+export function checkChat(raws: RawOrder[], customer: string, messages: Message[]): { orders: Order[]; skipped: Skipped[] } {
+  const skipped: Skipped[] = [];
+  const merged: RawOrder[] = [];
+  for (const r of raws.filter((r) => r.item || r.day || r.size)) {
+    const same = merged.find((m) => m.item && r.item && normItem(m.item) && normItem(m.item) === normItem(r.item));
+    if (!same) {
+      merged.push({ ...r });
+      continue;
+    }
+    // Later details win; anything the later copy left out keeps its earlier value.
+    for (const k of Object.keys(r) as (keyof RawOrder)[]) if (r[k]) same[k] = r[k];
+  }
+
+  const orders: Order[] = [];
+  for (const raw of merged) {
+    const o = checkOrder(raw, customer, messages);
+    const last = o.sources.length ? Math.max(...o.sources) : -1;
+    const cancel = messages.findIndex((m, i) => i >= last && last >= 0 && m.sender === messages[last].sender && CANCEL.test(m.text));
+    const cancelAfter = cancel >= 0 ? cancel : messages.findIndex((m, i) => i > last && CANCEL.test(m.text));
+    if (cancelAfter >= 0 && cancelAfter >= last) {
+      skipped.push({ customer, item: o.item, why: `Cancelled in the chat: "${messages[cancelAfter].text}"` });
+      continue;
+    }
+    const itemLine = raw.item ? messages[o.sources.find((i) => messages[i].text.toLowerCase().includes(raw.item!.toLowerCase().split(' ').pop()!)) ?? -1] : undefined;
+    if (!raw.day && o.advance === null && itemLine && ENQUIRY.test(itemLine.text)) {
+      skipped.push({ customer, item: o.item, why: `Only asked the price: "${itemLine.text}"` });
+      continue;
+    }
+    orders.push(o);
+  }
+  return { orders, skipped };
 }
 
 /** WhatsApp text the baker can send back. The customer is the last check. */
