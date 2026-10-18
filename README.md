@@ -26,7 +26,21 @@ No server, no account, no API key. Chats never leave the device.
 
 ## Eval
 
-{{README_RESULTS}}
+Gemma 4 E2B, same runtime as the app (MediaPipe on WebGPU, Chromium on a Mac mini M4), every chat run two ways.
+
+| | Main set (18 chats, 16 orders) | | Held-out (8 chats, 7 orders, code frozen, run once) | |
+|---|---|---|---|---|
+| | Gemma alone | **Pakka** | Gemma alone | **Pakka** |
+| Delivery day right | 4 | **16** | 3 | **6** (1 asked) |
+| Delivery day confidently wrong | 8 | **0** | 4 | **0** |
+| Size right | 13 | 16 | 6 | 7 |
+| Price right | 13 | 16 | 7 | 7 |
+| Orders that weren't orders | 3 | 0 | 0 | 0 |
+
+The main-set Pakka numbers include three chat-level rules and one bug fix made after its first run (15 right, 1 asked,
+0 wrong, 3 non-orders), so they are tuned on that set. The held-out set was written after the code was frozen.
+It found one bug ("the day after tomorrow" read as two days, so Pakka asked), fixed afterwards in `when.ts`.
+Raw replies: `eval/results/main.json`, `eval/results/heldout.json`.
 
 18 hand-written chats (16 orders, plus 3 chats with no order), including traps: *kal* about yesterday, *parso* about a
 complaint, a size changed the next morning, a cancellation, price questions only, Devanagari, two orders in one chat,
@@ -34,7 +48,8 @@ complaint, a size changed the next morning, a cancellation, price questions only
 
 - `/eval.html` (in any WebGPU browser) runs every chat through Gemma twice: **Gemma alone** (told today's date, asked
   for finished values) and **Pakka** (Gemma copies, code reads). It saves every raw reply.
-- `node eval/rescore.ts eval/results/<run>.json -v` re-scores the committed replies with the current code. No model needed.
+- `node eval/rescore.ts eval/results/main.json -v` and `node eval/score-heldout.ts -v` re-score the committed replies with
+  the current code. No model needed.
 
 ## Run it
 
