@@ -10,7 +10,7 @@ So I built **Pakka** (Hindi for "confirmed, for sure"). You export the chats fro
 
 ## What I Built
 
-![Pakka home screen: add WhatsApp chats, or try 18 sample chats](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/home.png)
+![Pakka home screen: add WhatsApp chats, try 18 sample chats, or see a recorded run](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/v2-home.png)
 
 Pakka is a web app for home bakers who take orders on WhatsApp.
 
@@ -31,11 +31,11 @@ Nothing is uploaded. No account, no server, no API key. Customer names, phone ch
 - **Try 18 sample chats** runs Gemma for real in your browser (WebGPU: Chrome or Edge on a laptop or a recent Android phone, Safari 26). The first run downloads the model once, about 2 GB.
 - **No time for a 2 GB download?** Open https://pakka-gamma.vercel.app/?replay. It replays the replies Gemma gave in my test run through Pakka's checker, live, with the chats re-dated to today.
 
-![The bake sheet: orders grouped by day, with totals](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/sheet.png)
+![The bake sheet: totals up top, orders grouped by day, and a summary of what to bake and collect](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/v2-sheet.png)
 
-![A card Pakka isn't sure about: a weekday named on that same weekday](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/flag-weekday.png)
+![A card Pakka isn't sure about: a weekday named on that same weekday](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/v2-flag.png)
 
-![Chats Gemma saw that Pakka left off the sheet: a price question and a cancelled order](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/skipped.png)
+![Chats Gemma saw that Pakka left off the sheet: a price question and a cancelled order](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/v2-skipped.png)
 
 ## Code
 
@@ -145,7 +145,7 @@ The row I care most about is **confidently wrong dates**: the cake is on the she
 
 Here's the Rahul chat on Pakka's sheet. The highlighted lines are where each detail came from. The "kal" message about yesterday's cake isn't highlighted, because nothing on the card came from it:
 
-![Rahul's order: the pineapple cake on the right day, with the chat lines it came from](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/rahul.png)
+![Rahul's order on the right day, with the chat lines each detail came from (the demo re-dates the chats to today, so the weekday differs from the eval run)](https://raw.githubusercontent.com/codeswithroh/pakka/main/docs/v2-rahul.png)
 
 The eval page ships with the app (`/eval.html`), and every raw Gemma reply is committed in `eval/results/`. `node eval/rescore.ts <file>` re-scores them with the current checker, no model needed.
 
