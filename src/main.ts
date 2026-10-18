@@ -9,6 +9,7 @@ import { hasWebGpu, loadGemma, generate, modelIsCached } from './llm.ts';
 import recorded from './recorded.json';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
+let forceReplay = false;
 const DAY = 86_400_000;
 
 // "Now" as a civil time, in the same frame the chat parser uses.
@@ -94,7 +95,7 @@ async function readAll() {
   state.orders = [];
   const now = civilNow();
   const isSample = state.baker === BAKER;
-  const gpu = state.gpu ?? (state.gpu = await hasWebGpu());
+  const gpu = forceReplay ? false : (state.gpu ?? (state.gpu = await hasWebGpu()));
 
   if (!gpu) {
     if (!isSample) {
@@ -245,7 +246,7 @@ function sheet(): string {
       <div>
         <h2>Bake sheet</h2>
         <p class="muted">${state.orders.length} orders from ${state.chats.length} chats${flagged ? ` · <strong class="warn">${flagged} to check before you bake</strong>` : ' · all checked'}</p>
-        ${state.mode === 'recorded' ? '<p class="note">This browser can\'t run Gemma, so you\'re seeing the replies Gemma 4 E2B gave for these sample chats in our test run, checked live against the chats here.</p>' : ''}
+        ${state.mode === 'recorded' ? '<p class="note">Recorded run: these are the replies Gemma 4 E2B gave for the sample chats in my test run. Pakka\'s checker is running on them live, right now, against the chats dated to today.</p>' : ''}
       </div>
       <button class="ghost noprint" id="print">Print</button>
     </div>
@@ -283,6 +284,7 @@ function intake(): string {
       <label class="primary file">Add WhatsApp chats<input id="files" type="file" accept=".txt,.zip,text/plain,application/zip" multiple hidden /></label>
       <button class="ghost" id="samples">Try ${CASES.length} sample chats</button>
     </div>
+    <p class="small muted skip">No time for a 2 GB download? <button class="link" id="replay">See a recorded run of the sample chats</button></p>
     <details class="paste"><summary>Or paste a chat</summary>
       <textarea id="paste" rows="6" placeholder="17/10/26, 9:42 pm - Priya: kal shaam 6 baje tak 1 kg chocolate truffle chahiye"></textarea>
       <button class="ghost" id="add-paste">Add pasted chat</button>
@@ -339,6 +341,11 @@ function bind() {
     if (files?.length) readFiles(files);
   });
   document.querySelector('#samples')?.addEventListener('click', loadSamples);
+  document.querySelector('#replay')?.addEventListener('click', () => {
+    forceReplay = true;
+    loadSamples();
+    readAll();
+  });
   document.querySelector('#add-paste')?.addEventListener('click', () => {
     const text = document.querySelector<HTMLTextAreaElement>('#paste')!.value;
     const chat = parseChat(text);
@@ -381,4 +388,10 @@ modelIsCached().then((c) => {
 });
 
 // Let a shared link open straight into the demo: /?demo
-if (new URLSearchParams(location.search).has('demo')) loadSamples();
+const params = new URLSearchParams(location.search);
+if (params.has('demo')) loadSamples();
+if (params.has('replay')) {
+  forceReplay = true;
+  loadSamples();
+  readAll();
+}

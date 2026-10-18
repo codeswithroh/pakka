@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0}
+  body{width:1000px;height:420px;background:#fbf4ea;color:#2a1a14;font-family:Inter,sans-serif;display:grid;grid-template-columns:1.1fr 1fr;overflow:hidden}
+  .l{padding:44px 0 40px 56px;display:flex;flex-direction:column;justify-content:space-between}
+  .brand{font:700 26px Fraunces,serif;color:#7a2e1f;display:flex;align-items:center;gap:12px}
+  h1{font:700 56px/1.02 Fraunces,serif;margin:0;letter-spacing:-.02em}
+  h1 em{font-style:italic;font-weight:500;color:#7a2e1f}
+  .dev{font:500 32px 'Tiro Devanagari Hindi',serif;color:#7a2e1f;margin-left:10px}
+  .sub{font-size:20px;line-height:1.4;color:#5b463b;max-width:440px}
+  .r{position:relative;padding:34px 44px 0 10px}
+  .bubble{background:#fff;border-radius:16px 16px 16px 4px;padding:14px 16px;font-size:17px;box-shadow:0 2px 0 #ead9c6;margin-bottom:14px;max-width:360px}
+  .bubble small{display:block;font-size:12px;color:#9a8478;margin-top:4px}
+  .x{text-decoration:line-through;text-decoration-color:#b45309}
+  .card{background:#fffdf9;border:1.5px solid #ead9c6;border-radius:16px;padding:14px 16px;font-size:16px;max-width:360px}
+  .card b{font:600 18px Fraunces,serif;color:#7a2e1f}
+  .tag{display:inline-block;background:#e3f1e1;color:#2f6b3a;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;margin-left:6px}
+  .warn{background:#fff1d6;color:#8a4b06;border-radius:10px;padding:8px 10px;font-size:14px;margin-top:10px}
+</style></head>
+<body>
+  <div class="l">
+    <div class="brand"><img src="../public/icon.svg" width="40" height="40">Pakka</div>
+    <div>
+      <h1><em>kal</em><span class="dev">कल</span><br>= yesterday<br>= tomorrow</h1>
+    </div>
+    <div class="sub">Home bakers' WhatsApp orders, read by Gemma 4 on their own phone. When it isn't sure, it asks.</div>
+  </div>
+  <div class="r">
+    <div class="bubble">kal shaam 6 baje 1 kg chocolate truffle chahiye, eggless please<small>Priya · 9:42 pm</small></div>
+    <div class="bubble">kal jo red velvet liya tha sabko bahut pasand aaya 😍<small>Rahul · 10:02 am</small></div>
+    <div class="card"><b>Tomorrow · 6:00 pm</b><br>Priya · 1 kg chocolate truffle <span class="tag">Eggless</span>
+      <div class="warn">⚠ Rahul's "kal" sounds like the past. Not on the sheet.</div></div>
+  </div>
+</body></html>
