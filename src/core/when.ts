@@ -54,7 +54,7 @@ const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', '
 
 // Past-tense Hindi/English markers. "kal jo cake liya tha" is yesterday.
 const PAST =
-  /\b(tha|thi|the|kiya|kiye|liya|liye|diya|diye|gaya|gayi|gaye|mila|mili|aaya|aayi|aaye|hua|hui|khaya|khayi|bheja|bheji|was|were|did|had|yesterday|last)\b/;
+  /\b(tha|thi|kiya|kiye|liya|liye|diya|diye|gaya|gayi|gaye|mila|mili|aaya|aayi|aaye|hua|hui|khaya|khayi|bheja|bheji|was|were|did|had|yesterday|last)\b/;
 // Future/request markers. "kal chahiye" is tomorrow.
 const FUTURE =
   /\b(chahiye|chaiye|chahie|chahiye\.|dena|de\s?dena|dedo|de\s?do|bhejna|bhej\s?dena|bana\s?dena|banana|karna|kar\s?dena|hoga|hogi|milega|milegi|ready|deliver|delivery|pickup|pick\s?up|lene|lunga|lungi|aaunga|aaungi|want|need|can you|please|plz|pls|will|order|tak)\b/;
@@ -118,7 +118,8 @@ export function parseTime(q: string): { time: string | null; guessed: boolean } 
  * @param sentAt  when that message was sent
  */
 export function resolveWhen(quote: string, message: string, sentAt: Date): When {
-  const q = romanise(quote);
+  // "day after tomorrow" contains "tomorrow"; say it the Hindi way so it is one day, not two.
+  const q = romanise(quote).replace(/\bday after (tomorrow|tmrw|tomorow)\b/g, 'parso');
   const base = startOfDay(sentAt);
   const { time, guessed } = parseTime(quote);
   const at = (days: number) => new Date(base.getTime() + days * DAY);
@@ -138,9 +139,11 @@ export function resolveWhen(quote: string, message: string, sentAt: Date): When 
   if (hits.length) {
     const [, days, word] = hits[0];
     const twoWay = word === 'kal' || word === 'parso';
-    const isHindi = /\b(kal|kl|kall|parso|parson|parsoon|narso|narson)\b/.test(q);
+    // English "the" is also Hindi "were", so the tense check only runs on words the customer typed in Hindi.
+    const isHindi = /\b(kal|kl|kall|parso|parson|parsoon|narso|narson)\b/.test(romanise(quote));
     if (twoWay && isHindi) {
-      const clause = clauseOf(message, quote);
+      // "ke liye" means "for", not "took": strip it before looking for past-tense verbs.
+      const clause = clauseOf(message, quote).replace(/\bke\s+liye\b/g, ' ');
       const past = PAST.test(clause);
       const future = FUTURE.test(clause);
       if (past && !future) {

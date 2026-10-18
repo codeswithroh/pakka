@@ -4,7 +4,7 @@
 // Dates are scored three ways: right, asked (flagged for the baker), wrong (confidently wrong).
 import { CASES, BAKER, toExport, type Case, type Expected } from '../src/core/samples.ts';
 import { parseChat, recent, transcript } from '../src/core/whatsapp.ts';
-import { extractOrders, checkOrder, parseReply, type Order, type Generate } from '../src/core/extract.ts';
+import { extractOrders, checkChat, parseReply, type Order, type Generate } from '../src/core/extract.ts';
 
 export const NOW = new Date(Date.UTC(2026, 9, 17, 22, 30)); // Saturday 17 Oct 2026, 10:30 pm
 const DAY = 86_400_000;
@@ -38,7 +38,7 @@ function fromOrder(o: Order): Pred {
   };
 }
 
-const BASELINE_PROMPT = (chat: string) => `You read WhatsApp chats between a home baker and a customer. Messages mix Hindi and English.
+export const BASELINE_PROMPT = (chat: string) => `You read WhatsApp chats between a home baker and a customer. Messages mix Hindi and English.
 Today is Saturday, 17 October 2026, 10:30 pm.
 
 Find every order the customer placed. For each order give:
@@ -99,7 +99,7 @@ export function pakkaPreds(c: Case, reply: string): { preds: Pred[]; orders: Ord
   } catch {
     // no JSON: no orders
   }
-  const orders = raws.filter((r) => r.item || r.day || r.size).map((r) => checkOrder(r, chat.name, messages));
+  const { orders } = checkChat(raws, chat.name, messages);
   return { preds: orders.map(fromOrder), orders };
 }
 
