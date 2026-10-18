@@ -48,7 +48,7 @@ export const CASES: Case[] = [
     lines: [
       [0, '10:02', 'Rahul', 'kal jo red velvet liya tha sabko bahut pasand aaya 😍'],
       [0, '10:03', BAKER, 'thank you so much!! 🙏'],
-      [0, '10:05', 'Rahul', 'ab Tuesday ko office ke liye 2 kg pineapple chahiye, 4 baje tak'],
+      [0, '10:05', 'Rahul', 'ab {+3} ko office ke liye 2 kg pineapple chahiye, 4 baje tak'],
       [0, '10:06', BAKER, '2 kg pineapple 1400 ka hoga'],
       [0, '10:06', 'Rahul', 'ok done'],
     ],
@@ -59,7 +59,7 @@ export const CASES: Case[] = [
     customer: 'Ananya',
     trap: 'customer changes the size',
     lines: [
-      [1, '19:10', 'Ananya', 'Hi! Sunday ke liye 1 kg black forest book karna hai'],
+      [1, '19:10', 'Ananya', 'Hi! {+1} ke liye 1 kg black forest book karna hai'],
       [1, '19:12', BAKER, 'Sure! kis time chahiye?'],
       [1, '19:15', 'Ananya', 'lunch time, 1 baje tak'],
       [0, '09:30', 'Ananya', 'actually guests badh gaye, 1.5 kg kar do please'],
@@ -96,7 +96,7 @@ export const CASES: Case[] = [
     trap: 'two orders in one chat',
     lines: [
       [0, '18:20', 'Sneha', 'Didi kal ke liye 1 kg rasmalai cake, eggless'],
-      [0, '18:21', 'Sneha', 'aur Thursday ko 2 dozen brownies bhi chahiye school ke liye'],
+      [0, '18:21', 'Sneha', 'aur {+5} ko 2 dozen brownies bhi chahiye school ke liye'],
       [0, '18:25', BAKER, 'cake 1300, brownies 960'],
       [0, '18:26', 'Sneha', '1000 advance bheja hai'],
     ],
@@ -121,7 +121,7 @@ export const CASES: Case[] = [
     customer: 'Fatima',
     trap: 'names today\'s weekday',
     lines: [
-      [0, '11:00', 'Fatima', 'Assalamualaikum! Saturday ko 1 kg mango cake milega? eggless'],
+      [0, '11:00', 'Fatima', 'Assalamualaikum! {+0} ko 1 kg mango cake milega? eggless'],
       [0, '11:02', BAKER, 'haan ji, 1100'],
     ],
     expect: [{ item: 'mango', kg: 1, eggless: true, day: 'flag', time: null, message: null, price: 1100, advance: null }],
@@ -130,7 +130,7 @@ export const CASES: Case[] = [
     id: 'vikram-date',
     customer: 'Vikram',
     lines: [
-      [0, '20:00', 'Vikram', 'Need a 2 kg photo cake on 25th Oct for my daughter\'s birthday'],
+      [0, '20:00', 'Vikram', 'Need a 2 kg photo cake on {date+8} for my daughter\'s birthday'],
       [0, '20:01', 'Vikram', 'Message: Happy 5th Birthday Aarohi'],
       [0, '20:05', BAKER, 'Photo cake 2 kg will be ₹2,200. 50% advance please'],
       [0, '20:20', 'Vikram', 'Sent 1100 on PhonePe'],
@@ -176,7 +176,7 @@ export const CASES: Case[] = [
     lines: [
       [0, '15:00', 'Sameer', 'kal wala cake mast tha, waisa hi ek aur chahiye 1 kg'],
       [0, '15:02', BAKER, 'thank you! kab chahiye?'],
-      [0, '15:03', 'Sameer', 'Monday evening'],
+      [0, '15:03', 'Sameer', '{+2} evening'],
     ],
     expect: [{ item: 'cake', kg: 1, eggless: null, day: 2, time: 'evening', message: null, price: null, advance: null }],
   },
@@ -185,7 +185,7 @@ export const CASES: Case[] = [
     customer: 'Kavya',
     trap: '"next Sunday"',
     lines: [
-      [0, '14:10', 'Kavya', 'Next Sunday ko 1.5 kg fresh fruit cake chahiye'],
+      [0, '14:10', 'Kavya', 'Next {+1} ko 1.5 kg fresh fruit cake chahiye'],
       [0, '14:11', 'Kavya', 'eggless'],
       [0, '14:20', BAKER, '1500 total, 500 advance'],
       [0, '14:30', 'Kavya', 'done, 500 sent'],
@@ -207,7 +207,7 @@ export const CASES: Case[] = [
     id: 'nisha-dedh',
     customer: 'Nisha',
     lines: [
-      [0, '19:30', 'Nisha', 'didi dedh kilo ka kitkat cake banana hai Wednesday ko'],
+      [0, '19:30', 'Nisha', 'didi dedh kilo ka kitkat cake banana hai {+4} ko'],
       [0, '19:31', 'Nisha', 'shaam 7 baje pickup karungi'],
       [0, '19:35', BAKER, '1800 hoga, kitkat extra lagega'],
       [0, '19:36', 'Nisha', 'thik hai, 800 abhi bhej rahi hu'],
@@ -238,10 +238,29 @@ export const CASES: Case[] = [
   },
 ];
 
+const WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const ord = (n: number) => n + (n % 10 === 1 && n !== 11 ? 'st' : n % 10 === 2 && n !== 12 ? 'nd' : n % 10 === 3 && n !== 13 ? 'rd' : 'th');
+
+/**
+ * Weekday and date names in the chats are written relative to "day 0" ({+3} = the weekday three
+ * days after it, {date+8} = "25th Oct" style), so the traps still work whatever today is.
+ */
+function fill(text: string, day0: Date): string {
+  return text
+    .replace(/\{\+(\d+)\}/g, (_, n) => WD[(day0.getUTCDay() + Number(n)) % 7])
+    .replace(/\{date\+(\d+)\}/g, (_, n) => {
+      const d = new Date(day0.getTime() + Number(n) * 86_400_000);
+      return `${ord(d.getUTCDate())} ${MON[d.getUTCMonth()]}`;
+    });
+}
+
 /** Turn a case into WhatsApp-export text, dated so that `now` is the evening of "day 0". */
 export function toExport(c: Case, now: Date): string {
+  const day0 = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
   return c.lines
-    .map(([daysAgo, hhmm, who, text]) => {
+    .map(([daysAgo, hhmm, who, raw]) => {
+      const text = fill(raw, day0);
       const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysAgo));
       const [h, m] = hhmm.split(':').map(Number);
       const dd = String(d.getUTCDate()).padStart(2, '0');
