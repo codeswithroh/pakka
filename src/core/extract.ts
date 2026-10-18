@@ -158,7 +158,7 @@ export function checkOrder(raw: RawOrder, customer: string, messages: Message[])
 
   return {
     customer,
-    item: item.text ?? 'Order (item unclear)',
+    item: displayItem(item.text, size.text) ?? 'Order (item unclear)',
     sizeKg,
     count,
     sizeText: size.text,
@@ -174,6 +174,18 @@ export function checkOrder(raw: RawOrder, customer: string, messages: Message[])
     sources: [...sources].sort((a, b) => a - b),
     messages,
   };
+}
+
+/** "half kg red velvet" next to a "0.5 kg" column reads twice; drop the size words from the item. */
+function displayItem(item: string | null, size: string | null): string | null {
+  if (!item) return null;
+  let out = item;
+  if (size && out.toLowerCase().includes(size.toLowerCase())) {
+    const rest = out.replace(new RegExp(size.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), '').trim();
+    if (rest) out = rest;
+  }
+  out = out.replace(/^\s*(\d+(\.\d+)?\s*(kg|kgs|kilo|gm|g|lb|pound)s?|half\s*kg|aadha\s*kilo|\d+\s*dozen|\d+)\s+(ka\s+|of\s+)?/i, '').trim();
+  return out || item;
 }
 
 export async function extractOrders(chat: Chat, baker: string | null, now: Date, generate: Generate): Promise<Order[]> {
