@@ -2,9 +2,9 @@ import '@fontsource-variable/fraunces';
 import '@fontsource-variable/inter';
 import './style.css';
 import { unzipSync, strFromU8 } from 'fflate';
-import { parseChat, nameFromFile, guessBaker, senders, fmtTime, type Chat, type Message } from './core/whatsapp.ts';
-import { extractOrders, checkOrder, confirmation, dayLabel, parseReply, type Order } from './core/extract.ts';
-import { CASES, BAKER, toExport } from './core/samples.ts';
+import { parseChat, nameFromFile, guessBaker, senders, fmtTime, recent, transcript, type Chat, type Message } from './core/whatsapp.ts';
+import { checkChat, buildPrompt, confirmation, dayLabel, parseReply, type Order, type Skipped } from './core/extract.ts';
+import { CASES, BAKER, toExport, shiftRecordedReply } from './core/samples.ts';
 import { hasWebGpu, loadGemma, generate, modelIsCached } from './llm.ts';
 import recorded from './recorded.json';
 
@@ -22,6 +22,7 @@ interface State {
   chats: Chat[];
   baker: string | null;
   orders: Order[];
+  skipped: Skipped[];
   progress: { done: number; total: number; current: string } | null;
   status: string;
   fraction: number | null;
@@ -36,6 +37,7 @@ const state: State = {
   chats: [],
   baker: null,
   orders: [],
+  skipped: [],
   progress: null,
   status: '',
   fraction: null,
@@ -84,6 +86,7 @@ function loadSamples() {
   state.chats = CASES.map((c) => parseChat(toExport(c, now), c.customer));
   state.baker = BAKER;
   state.orders = [];
+  state.skipped = [];
   state.mode = null;
   render();
 }
@@ -93,6 +96,7 @@ function loadSamples() {
 async function readAll() {
   state.error = null;
   state.orders = [];
+  state.skipped = [];
   const now = civilNow();
   const isSample = state.baker === BAKER;
   const gpu = forceReplay ? false : (state.gpu ?? (state.gpu = await hasWebGpu()));
@@ -129,7 +133,19 @@ async function readAll() {
     state.status = `Gemma is reading ${chat.name}'s chat…`;
     renderStatus();
     try {
-      state.orders.push(...(await extractOrders(chat, state.baker, now, generate)));
+      const messages = recent(chat, now);
+      if (messages.some((m) => m.sender !== state.baker)) {
+        const prompt = buildPrompt(transcript(messages, state.baker));
+        let raws;
+        try {
+          raws = parseReply(await generate(prompt));
+        } catch {
+          raws = parseReply(await generate(prompt + '\n\nReply with the JSON object only.'));
+        }
+        const { orders, skipped } = checkChat(raws, chat.name, messages);
+        state.orders.push(...orders);
+        state.skipped.push(...skipped);
+      }
     } catch (e) {
       console.warn(chat.name, e);
     }
@@ -152,9 +168,9 @@ function replayRecorded(now: Date) {
     const chat = state.chats[i];
     const messages = chat.messages.filter((m) => m.at.getTime() >= now.getTime() - 10 * DAY);
     try {
-      return parseReply(reply)
-        .filter((r) => r.item || r.day || r.size)
-        .map((r) => checkOrder(r, chat.name, messages));
+      const { orders, skipped } = checkChat(parseReply(shiftRecordedReply(reply, now)), chat.name, messages);
+      state.skipped.push(...skipped);
+      return orders;
     } catch {
       return [];
     }
@@ -267,6 +283,13 @@ function sheet(): string {
         </div>`;
       })
       .join('')}
+    ${
+      state.skipped.length
+        ? `<div class="day"><h3 class="day-label">Not on the sheet</h3><p class="day-sum">Gemma saw these, Pakka left them off.</p>${state.skipped
+            .map((k) => `<div class="skipped"><strong>${esc(k.customer)}</strong> · ${esc(k.item)}<br><span class="muted small">${esc(k.why)}</span></div>`)
+            .join('')}</div>`
+        : ''
+    }
   </section>`;
 }
 
@@ -357,7 +380,7 @@ function bind() {
   });
   document.querySelector('#read')?.addEventListener('click', readAll);
   document.querySelector('#clear')?.addEventListener('click', () => {
-    Object.assign(state, { chats: [], baker: null, orders: [], mode: null, error: null });
+    Object.assign(state, { chats: [], baker: null, orders: [], skipped: [], mode: null, error: null });
     state.checked.clear();
     render();
   });

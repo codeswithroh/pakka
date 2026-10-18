@@ -270,3 +270,20 @@ export function toExport(c: Case, now: Date): string {
     })
     .join('\n');
 }
+
+/** The eval ran with "day 0" = Saturday 17 Oct 2026. */
+export const EVAL_DAY0 = new Date(Date.UTC(2026, 9, 17));
+
+/**
+ * The recorded replies quote weekday and date names as they read in the eval run. For the replay
+ * demo the chats are re-dated to today, so the same quotes are shifted the same way, or the
+ * checker would (rightly) reject them as words that aren't in the chat.
+ */
+export function shiftRecordedReply(reply: string, now: Date): string {
+  const day0 = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const map = new Map<string, string>();
+  for (let n = 0; n < 7; n++) map.set(WD[(EVAL_DAY0.getUTCDay() + n) % 7].toLowerCase(), WD[(day0.getUTCDay() + n) % 7]);
+  for (let n = 1; n < 40; n++) map.set(fill(`{date+${n}}`, EVAL_DAY0).toLowerCase(), fill(`{date+${n}}`, day0));
+  const keys = [...map.keys()].sort((a, b) => b.length - a.length).map((k) => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  return reply.replace(new RegExp(`\\b(${keys.join('|')})\\b`, 'gi'), (m) => map.get(m.toLowerCase()) ?? m);
+}
